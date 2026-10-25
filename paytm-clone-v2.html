@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PayNest – Paytm clone with test lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1f5fa;--sf:#fff;--ink:#0b2545;--mu:#5d6f87;--ln:#dde6f0;--br:#00baf2;--nv:#012a72;--ok:#12805c;--okb:#e0f5ec;--bd:#c0262d;--bdb:#fde8e8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#07111f;--sf:#0f1d31;--ink:#e8f0fb;--mu:#93a5bf;--ln:#223653;--nv:#0a3a8f;--ok:#4cd6a0;--okb:#0d3427;--bd:#ff8087;--bdb:#3b1519}}
+:root[data-theme="dark"]{--bg:#07111f;--sf:#0f1d31;--ink:#e8f0fb;--mu:#93a5bf;--ln:#223653;--nv:#0a3a8f;--ok:#4cd6a0;--okb:#0d3427;--bd:#ff8087;--bdb:#3b1519}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 Manrope,system-ui,sans-serif;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+.top{background:var(--nv);color:#fff;padding:14px 16px 64px}
+.w{max-width:720px;margin:0 auto}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.logo{font-weight:800;font-size:26px;letter-spacing:-1px}.logo b{color:var(--br)}
+.chip{background:rgba(255,255,255,.14);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600}
+.pull{margin-top:-48px;padding:0 16px}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:16px;margin-bottom:14px}
+h2{font-size:17px;margin:0 0 10px}h3{font-size:14px;margin:14px 0 6px}
+.bals{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.bals div{background:var(--bg);border-radius:12px;padding:10px 4px}.bals small{color:var(--mu);display:block;font-size:12px}.bals b{font-size:16px}
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.g{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.t{border:0;background:none;color:var(--ink);font:600 12px Manrope,sans-serif;cursor:pointer;padding:10px 2px;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.t i{font-style:normal;font-size:24px;width:48px;height:48px;border-radius:14px;background:var(--bg);display:grid;place-items:center}
+.t:hover i{background:var(--br)}
+.quick .t i{background:var(--nv);color:#fff}
+label{display:block;font-weight:600;font-size:13px;color:var(--mu);margin:10px 0 4px}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--ln);border-radius:10px;background:var(--bg);color:var(--ink);font:500 15px Manrope,sans-serif}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--br);outline-offset:2px}
+.btn{margin-top:12px;width:100%;background:var(--br);color:#012;border:0;border-radius:10px;font:800 15px Manrope,sans-serif;padding:12px;cursor:pointer}
+.btn.n{background:var(--nv);color:#fff}.btn.s{width:auto;padding:9px 16px;margin:0}
+.m{min-height:22px;margin-top:8px;font-size:14px;font-weight:600}.m.ok{color:var(--ok)}.m.er{color:var(--bd)}
+.tx{list-style:none;margin:0;padding:0}.tx li{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--ln);font-size:14px}.tx li:last-child{border:0}
+.tx small{display:block;color:var(--mu);font-size:12px}.db{color:var(--bd);font-weight:800}.cr{color:var(--ok);font-weight:800}
+.nav{position:fixed;left:0;right:0;bottom:0;background:var(--sf);border-top:1px solid var(--ln);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
+.nav .w{display:grid;grid-template-columns:repeat(5,1fr)}
+.nav button{border:0;background:none;color:var(--mu);font:600 11px Manrope,sans-serif;cursor:pointer;padding:6px 0;display:flex;flex-direction:column;align-items:center;gap:2px}
+.nav button span{font-size:20px}.nav button[aria-current=true]{color:var(--nv);font-weight:800}
+@media (prefers-color-scheme:dark){.nav button[aria-current=true]{color:var(--br)}}
+.back{background:none;border:0;color:#fff;font:700 14px Manrope,sans-serif;cursor:pointer;padding:0}
+.seg{display:flex;gap:6px;margin-bottom:6px}.seg button{flex:1;padding:8px;border-radius:999px;border:1px solid var(--ln);background:var(--bg);color:var(--ink);font:700 13px Manrope,sans-serif;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--nv);color:#fff;border-color:var(--nv)}
+.cc{background:linear-gradient(135deg,#012a72,#00baf2);color:#fff;border-radius:16px;padding:18px;margin-bottom:12px}
+.cc small{opacity:.8}.cc .no{letter-spacing:3px;font-weight:700;margin:14px 0}
+.pb{height:10px;border-radius:9px;background:var(--ln);overflow:hidden;margin-top:8px}.pb>div{height:100%;background:var(--br)}
+.opt{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--ln)}
+.ov{position:fixed;inset:0;background:rgba(1,20,50,.6);display:grid;place-items:center;z-index:9;padding:16px}.ov .card{width:100%;max-width:340px;margin:0}
+.ov input{text-align:center;letter-spacing:10px;font-size:22px}
+canvas{display:block;margin:6px auto;border-radius:12px;background:#fff;padding:8px;width:200px;height:200px}
+.sc{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px;min-width:600px}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--ln);vertical-align:top}th{color:var(--mu)}
+.pill{padding:2px 10px;border-radius:999px;font-weight:800;font-size:12px}.pass{background:var(--okb);color:var(--ok)}.fail{background:var(--bdb);color:var(--bd)}.idle{background:var(--ln);color:var(--mu)}
+.note{color:var(--mu);font-size:13px}.chk{display:flex;gap:8px;align-items:center;font-weight:600;font-size:14px}.chk input{width:auto}
+.bar2{display:flex;align-items:center;gap:8px;margin:7px 0;font-size:13px}.bar2 span:first-child{width:82px}.bar2 div{flex:1;height:14px;background:var(--ln);border-radius:8px;overflow:hidden}.bar2 div i{display:block;height:100%;background:var(--br)}.bar2 span:last-child{width:70px;text-align:right;font-weight:700}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<div class="top"><div class="w"><div class="bar"><div class="logo">pay<b>nest</b></div><div class="chip" id="upiChip"></div></div></div></div>
+<main class="pull"><div class="w">
+
+<section data-v="home">
+ <div class="card"><div class="bals"><div><small>Wallet</small><b id="bW"></b></div><div><small>Bank</small><b id="bB"></b></div><div><small>Card dues</small><b id="bC"></b></div></div>
+ <div class="quick"><button class="t" data-go="qr"><i>▦</i>Scan QR</button><button class="t" data-go="pay"><i>↗</i>Pay UPI</button><button class="t" data-go="bank"><i>🏦</i>To bank</button><button class="t" data-go="stats"><i>📊</i>Spends</button></div></div>
+ <div class="card"><h2>Recharge &amp; pay bills</h2><div class="g"><button class="t" data-go="recharge"><i>📱</i>Mobile</button><button class="t" data-go="recharge" data-dth="1"><i>📡</i>DTH</button><button class="t" data-go="bills"><i>💡</i>Electricity</button><button class="t" data-go="bills"><i>🧾</i>All bills</button><button class="t" data-go="card"><i>💳</i>Credit card</button><button class="t" data-go="travel"><i>✈️</i>Flights</button><button class="t" data-go="travel"><i>🚌</i>Bus</button><button class="t" data-go="travel"><i>🚆</i>Train</button><button class="t" data-go="tools"><i>➗</i>Split bill</button><button class="t" data-go="tools"><i>🎯</i>Goals</button><button class="t" data-go="tools"><i>🪙</i>Gold</button><button class="t" data-go="tools"><i>⏰</i>Reminders</button></div></div>
+ <div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px"><div><h2 style="margin:0">Cashback rewards</h2><span class="note">Earn ₹1 per ₹100 paid, up to ₹50 a payment.</span></div><div style="text-align:right"><b id="rw"></b><br><button class="btn s" id="rwG" style="margin-top:6px">Redeem</button></div></div><div class="m" id="rwM" role="status"></div><div class="card"><h2>Recent transactions</h2><ul class="tx" id="txH"></ul></div>
+</section>
+
+<section data-v="pay" hidden><div class="card"><h2>Pay with UPI</h2><div id="ct" class="seg" style="flex-wrap:wrap"></div>
+ <label for="pTo">UPI ID or mobile number</label><input id="pTo" placeholder="name@paynest or 9876543210" autocomplete="off">
+ <label for="pAmt">Amount (₹)</label><input id="pAmt" inputmode="decimal" placeholder="500">
+ <label>Pay from</label><span data-src></span>
+ <button class="btn" id="pGo">Pay securely</button><div class="m" id="pM" role="status"></div></div>
+ <div class="card"><h2>Your personalised UPI ID</h2><p class="note">Pick a name people can remember instead of a number.</p>
+ <label for="uName">Choose a name</label><input id="uName" placeholder="aditya.rai" autocomplete="off">
+ <button class="btn n" id="uGo">Claim UPI ID</button><div class="m" id="uM" role="status"></div></div><div class="card"><h2>Request money</h2><label for="rqA">Amount (₹)</label><input id="rqA" inputmode="decimal" placeholder="350"><label for="rqN">Note (optional)</label><input id="rqN" maxlength="30" placeholder="Trip share"><button class="btn n" id="rqGo">Create request link</button><input id="rqL" readonly hidden aria-label="Request link" style="margin-top:10px"><button class="btn s" id="rqC" hidden style="margin-top:8px">Copy link</button><div class="m" id="rqM" role="status"></div></div><div class="card"><h2>Change UPI PIN</h2><label for="pcO">Current PIN</label><input id="pcO" type="password" inputmode="numeric" maxlength="4"><label for="pcN">New 4-digit PIN</label><input id="pcN" type="password" inputmode="numeric" maxlength="4"><label for="pcC">Confirm new PIN</label><input id="pcC" type="password" inputmode="numeric" maxlength="4"><button class="btn n" id="pcGo">Change PIN</button><div class="m" id="pcM" role="status"></div></div></section>
+
+<section data-v="qr" hidden><div class="card"><h2>My QR code</h2><canvas id="cv" width="25" height="25"></canvas><p class="note" style="text-align:center" id="qrT"></p><p class="note">Demo pattern generated from your UPI link. It is not a real scannable QR.</p></div>
+ <div class="card"><h2>Scan &amp; pay</h2><label for="qIn">Paste a UPI QR link</label><textarea id="qIn" rows="2" placeholder="upi://pay?pa=shop@paynest&amp;pn=Shop&amp;am=100"></textarea>
+ <div style="display:flex;gap:8px;margin-top:10px"><button class="btn s n" id="qS">Use sample</button><button class="btn s" id="qR">Read code</button></div>
+ <div id="qBox" hidden><h3 id="qN"></h3><label for="qAmt">Amount (₹)</label><input id="qAmt" inputmode="decimal"><label>Pay from</label><span data-src></span><button class="btn" id="qGo">Pay merchant</button></div><div class="m" id="qM" role="status"></div></div></section>
+
+<section data-v="recharge" hidden><div class="card"><h2>Recharge</h2><div class="seg"><button id="rMob" aria-pressed="true">Mobile</button><button id="rDth" aria-pressed="false">DTH</button></div>
+ <label for="rNo" id="rL">Mobile number</label><input id="rNo" inputmode="numeric" maxlength="10" autocomplete="off">
+ <label for="rOp">Operator</label><select id="rOp"></select><label for="rPl">Plan</label><select id="rPl"></select>
+ <label>Pay from</label><span data-src></span><button class="btn" id="rGo">Recharge now</button><div class="m" id="rM" role="status"></div></div></section>
+
+<section data-v="bills" hidden><div class="card"><h2>Pay bills</h2>
+ <label for="bC2">Bill type</label><select id="bC2"><option>Electricity</option><option>Water</option><option>Gas</option><option>Broadband</option><option>FASTag</option></select>
+ <label for="bNo">Consumer number</label><input id="bNo" inputmode="numeric" placeholder="6 to 12 digits" autocomplete="off">
+ <label for="bAm">Bill amount (₹)</label><input id="bAm" inputmode="decimal" placeholder="1240">
+ <label>Pay from</label><span data-src></span><button class="btn" id="bGo">Pay bill</button><div class="m" id="bM" role="status"></div></div></section>
+
+<section data-v="bank" hidden><div class="card"><h2>PayNest Wallet and Payments Bank</h2><div class="bals" style="grid-template-columns:1fr 1fr"><div><small>Wallet</small><b id="bW2"></b></div><div><small>Savings account</small><b id="bB2"></b></div></div>
+ <label for="tD">Move money</label><select id="tD"><option value="bw">Bank to wallet (limit ₹10,000)</option><option value="wb">Wallet to bank</option></select>
+ <label for="tA">Amount (₹)</label><input id="tA" inputmode="decimal" placeholder="1000"><button class="btn" id="tGo">Move money</button><div class="m" id="tM" role="status"></div></div></section>
+
+<section data-v="card" hidden><div class="cc"><small>PayNest Credit Card</small><div class="no">•••• •••• •••• 4821</div><div style="display:flex;justify-content:space-between"><span id="cU"></span><span id="cL"></span></div></div>
+ <div class="card"><h2>Pay card bill</h2><div class="pb"><div id="cB"></div></div><label for="cA">Amount (₹, paid from bank)</label><input id="cA" inputmode="decimal" placeholder="2000"><button class="btn" id="cGo">Pay card bill</button><div class="m" id="cM" role="status"></div></div></section>
+
+<section data-v="travel" hidden><div class="card"><h2>Book travel</h2><div class="seg" id="tSeg"><button aria-pressed="true">Flight</button><button aria-pressed="false">Bus</button><button aria-pressed="false">Train</button></div>
+ <label for="fF">From</label><input id="fF" placeholder="Jaipur"><label for="fT">To</label><input id="fT" placeholder="Delhi"><label for="fD">Date</label><input id="fD" type="date"><label for="fP">Passengers (1 to 6)</label><input id="fP" type="number" min="1" max="6" value="1">
+ <label>Pay from</label><span data-src></span><button class="btn" id="fS">Search</button><div class="m" id="fM" role="status"></div><div id="fR"></div></div></section>
+
+<section data-v="stats" hidden><div class="card"><h2>Spend analytics</h2><p id="sT" class="note"></p><label for="bud">Monthly budget (₹)</label><input id="bud" inputmode="numeric" value="15000"><div class="pb"><div id="budB"></div></div><div class="m" id="budM" role="status"></div><div id="sB"></div></div><div class="card"><h2>All transactions</h2><input id="q" placeholder="Search by name or category" aria-label="Search transactions"><ul class="tx" id="txA"></ul></div></section>
+
+<section data-v="tools" hidden>
+<div class="card"><h2>Upcoming bills</h2><ul class="tx" id="rmL"></ul><h3>Add reminder</h3><label for="rmN">Bill name</label><input id="rmN" maxlength="24" placeholder="Rent"><label for="rmA">Amount (₹)</label><input id="rmA" inputmode="decimal"><label for="rmD">Due date</label><input id="rmD" type="date"><button class="btn n" id="rmGo">Add reminder</button><div class="m" id="rmM" role="status"></div></div>
+<div class="card"><h2>Split a bill</h2><label for="spA">Total bill (₹)</label><input id="spA" inputmode="decimal" placeholder="1000"><label for="spN">People (2 to 20, including you)</label><input id="spN" type="number" min="2" max="20" value="3"><button class="btn n" id="spGo">Split equally</button><div class="m" id="spM" role="status"></div><input id="spL" readonly hidden aria-label="Request link for one share" style="margin-top:8px"></div>
+<div class="card"><h2>Savings goals</h2><div id="gL"></div><h3>New goal</h3><label for="gN">Goal name</label><input id="gN" maxlength="24" placeholder="New phone"><label for="gT">Target (₹)</label><input id="gT" inputmode="decimal"><button class="btn n" id="gNew">Create goal</button><h3>Add savings</h3><label for="gS">Goal</label><select id="gS"></select><label for="gA">Amount (₹)</label><input id="gA" inputmode="decimal"><label for="gSrc">Pay from</label><select id="gSrc"><option value="wallet">PayNest Wallet</option><option value="bank">Bank account</option></select><button class="btn" id="gAdd">Add savings</button><div class="m" id="gM" role="status"></div></div>
+<div class="card"><h2>Digital gold</h2><p class="note">Demo price <b id="gp"></b> per gram. You hold <b id="gh"></b>, worth <b id="gv"></b>.</p><label for="aG">Amount to invest (₹, minimum ₹10)</label><input id="aG" inputmode="decimal" placeholder="500"><label for="gdS">Pay from</label><select id="gdS"><option value="wallet">PayNest Wallet</option><option value="bank">Bank account</option></select><button class="btn" id="gdGo">Buy gold</button><div class="m" id="gdM" role="status"></div></div>
+</section>
+<section data-v="lab" hidden><div class="card"><h2>Test lab</h2><p class="note">Each case runs on a fresh account against the same functions the app uses. Techniques: equivalence partitioning, boundary values, negative and integration tests. Turn on the bug to watch the suite catch a defect.</p>
+ <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><button class="btn s" id="run">Run all tests</button><label class="chk" style="margin:0"><input type="checkbox" id="bug">Inject bug: skip wallet balance check</label></div><p style="font-weight:800;font-size:17px" id="sum"></p>
+ <div class="sc"><table><thead><tr><th>ID</th><th>Technique</th><th>Test case</th><th>Expected</th><th>Status</th></tr></thead><tbody id="tb"></tbody></table></div></div></section>
+</div></main>
+
+<div class="ov" id="ov" hidden><div class="card" role="dialog" aria-label="Enter UPI PIN"><h2>Enter UPI PIN</h2><p class="note">Demo PIN is 1234 until you change it. Three wrong tries lock payments.</p><input id="pin" type="password" inputmode="numeric" maxlength="4" autocomplete="off"><div class="m er" id="pinM" role="alert"></div>
+<div style="display:flex;gap:8px"><button class="btn n" id="pinX">Cancel</button><button class="btn" id="pinOk">Confirm</button></div><button class="btn s" id="pinR" style="margin-top:10px" hidden>Reset demo lock</button></div></div>
+
+<nav class="nav" aria-label="Main"><div class="w"><button data-go="home"><span>🏠</span>Home</button><button data-go="qr"><span>▦</span>Scan</button><button data-go="pay"><span>↗</span>Pay</button><button data-go="stats"><span>📊</span>Spends</button><button data-go="lab"><span>🧪</span>Test lab</button></div></nav>
+
+<script>
+var BUG=false,TAKEN=['admin','paytm','rahul','shop','support'];
+function inr(n){return '₹'+Number(n).toLocaleString('en-IN',{maximumFractionDigits:2})}
+function validPhone(p){return /^[6-9]\d{9}$/.test(String(p))}
+function validUpi(u){return /^[a-z0-9._-]{2,30}@[a-z]{2,15}$/i.test(String(u))}
+function parseAmt(a){var s=String(a==null?'':a).trim();return /^\d+(\.\d{1,2})?$/.test(s)?parseFloat(s):NaN}
+function checkAmt(a,max){var n=parseAmt(a);if(isNaN(n))return 'Enter the amount as a number, for example 250 or 250.50.';if(n<1)return 'The minimum amount is ₹1.';if(n>(max||100000))return 'The limit is '+inr(max||100000)+' per payment.';return null}
+function mk(){return{wallet:5000,bank:25000,card:{limit:50000,used:12400},upi:'aditya.rai@paynest',pin:'1234',fails:0,locked:false,tx:[],rewards:0,goals:[],gold:0,bills:[{name:'Electricity',amt:1240,due:ymd(3)},{name:'Broadband',amt:799,due:ymd(6)},{name:'Credit card',amt:2000,due:ymd(-1)}]}}
+function checkPin(s,p){if(s.locked)return{ok:false,msg:'UPI is locked after 3 wrong PINs.'};if(p===s.pin){s.fails=0;return{ok:true}}s.fails++;if(s.fails>=3){s.locked=true;return{ok:false,msg:'Too many wrong PINs. UPI is locked.'}}return{ok:false,msg:'Wrong PIN. '+(3-s.fails)+' tries left.'}}
+var NAMES={wallet:'PayNest Wallet',bank:'bank account',card:'credit card'};
+function pay(s,src,amt,label,cat){var av=src==='card'?s.card.limit-s.card.used:s[src];if(amt>av&&!(BUG&&src==='wallet'))return{ok:false,msg:'Not enough balance in your '+NAMES[src]+'.'};if(src==='card')s.card.used+=amt;else s[src]-=amt;s.tx.unshift({cat:cat,label:label,amt:amt,at:new Date()});var cb=cashback(amt);s.rewards=(s.rewards||0)+cb;return{ok:true,msg:inr(amt)+' paid: '+label+'.'+(cb?' You earned '+inr(cb)+' cashback.':'')}}
+function moveMoney(s,dir,amt){if(dir==='bw'){if(amt>10000)return{ok:false,msg:'You can add up to ₹10,000 at a time.'};if(amt>s.bank)return{ok:false,msg:'Not enough balance in your bank account.'};s.bank-=amt;s.wallet+=amt}else{if(amt>s.wallet)return{ok:false,msg:'Not enough balance in your PayNest Wallet.'};s.wallet-=amt;s.bank+=amt}return{ok:true,msg:inr(amt)+' moved.'}}
+function setUpi(s,n){n=String(n).trim().toLowerCase();if(!/^[a-z][a-z0-9.-]{2,24}$/.test(n))return{ok:false,msg:'Use 3 to 25 letters, numbers, dots or hyphens, starting with a letter.'};if(TAKEN.indexOf(n)>-1||TAKEN.indexOf(n.split('.')[0])>-1&&n.length<6)return{ok:false,msg:n+'@paynest is taken. Try another name.'};s.upi=n+'@paynest';return{ok:true,msg:'Your UPI ID is now '+s.upi+'.'}}
+function parseQR(t){try{t=String(t).trim();if(!/^upi:\/\/pay\?/i.test(t))return null;var q=new URLSearchParams(t.split('?')[1]),pa=q.get('pa');if(!validUpi(pa))return null;return{pa:pa,pn:q.get('pn')||pa,am:q.get('am')?parseAmt(q.get('am')):null}}catch(e){return null}}
+function fare(mode,pax,i){var b={Flight:4200,Bus:900,Train:650}[mode];return Math.round(b*(1+i*0.12))*pax}
+function spendBy(s){var o={};s.tx.forEach(function(t){if(t.cat==='Invested')return;o[t.cat]=(o[t.cat]||0)+t.amt});return o}
+
+function cashback(a){return a>=100?Math.min(50,Math.floor(a/100)):0}
+function redeem(s){if(!s.rewards)return{ok:false,msg:'No cashback to redeem yet.'};var r=s.rewards;s.wallet+=r;s.rewards=0;return{ok:true,msg:inr(r)+' cashback added to your wallet.'}}
+function changePin(s,o,n,c){if(s.locked)return{ok:false,msg:'UPI is locked. Reset the lock first.'};if(o!==s.pin)return{ok:false,msg:'Current PIN is wrong.'};if(!/^\d{4}$/.test(n))return{ok:false,msg:'New PIN must be exactly 4 digits.'};if(/^(\d)\1{3}$/.test(n)||n==='1234'||n==='4321')return{ok:false,msg:'Choose a PIN that is not easy to guess.'};if(n!==c)return{ok:false,msg:'New PIN and confirmation do not match.'};s.pin=n;return{ok:true,msg:'UPI PIN changed.'}}
+function reqLink(s,amt,note){if(checkAmt(amt))return null;var u='upi://pay?pa='+s.upi+'&pn='+encodeURIComponent('Aditya Rai')+'&am='+parseAmt(amt);if(note)u+='&tn='+encodeURIComponent(note);return u}
+var GOLD=7250;
+function ymd(n){return new Date(Date.now()+n*864e5).toISOString().slice(0,10)}
+function splitBill(total,n){var t=parseAmt(total);if(isNaN(t)||t<1)return null;if(!(n>=2&&n<=20&&n%1===0))return null;var p=Math.round(t*100),b=Math.floor(p/n),r=p%n,a=[];for(var i=0;i<n;i++)a.push(b+(i<r?1:0));return a}
+function invest(s,src,amt,label){if(amt>s[src])return{ok:false,msg:'Not enough balance in your '+NAMES[src]+'.'};s[src]-=amt;s.tx.unshift({cat:'Invested',label:label,amt:amt,at:new Date()});return{ok:true}}
+function addGoal(s,name,target){name=String(name).trim();if(!name)return{ok:false,msg:'Enter a goal name.'};var e=checkAmt(target,1000000);if(e)return{ok:false,msg:e};if(s.goals.length>=5)return{ok:false,msg:'You can keep up to 5 goals.'};s.goals.push({name:name,target:parseAmt(target),saved:0});return{ok:true,msg:'Goal “'+name+'” created.'}}
+function saveToGoal(s,i,src,amt){var g=s.goals[i];if(!g)return{ok:false,msg:'Choose a goal.'};var need=Math.round((g.target-g.saved)*100)/100;if(amt>need)return{ok:false,msg:'This goal needs only '+inr(need)+' more.'};var r=invest(s,src,amt,'Saved for '+g.name);if(!r.ok)return r;g.saved=Math.round((g.saved+amt)*100)/100;return{ok:true,msg:inr(amt)+' added to '+g.name+'.'}}
+function buyGold(s,src,amt){if(amt<10)return{ok:false,msg:'The minimum gold purchase is ₹10.'};var g=Math.floor(amt/GOLD*10000)/10000,r=invest(s,src,amt,'Bought '+g+' g gold');if(!r.ok)return r;s.gold=Math.round((s.gold+g)*10000)/10000;return{ok:true,msg:'You bought '+g+' g of gold.'}}
+function dueStatus(due,today){var d=Math.round((new Date(due)-new Date(today))/864e5);return d<0?'overdue':d<=3?'soon':'later'}
+function addReminder(s,name,amt,due,today){name=String(name).trim();if(!name)return{ok:false,msg:'Enter a bill name.'};var e=checkAmt(amt,200000);if(e)return{ok:false,msg:e};if(!due||due<today)return{ok:false,msg:'Choose today or a later due date.'};s.bills.push({name:name,amt:parseAmt(amt),due:due});return{ok:true,msg:'Reminder added.'}}
+function payReminder(s,i){var b=s.bills[i];if(!b)return{ok:false,msg:'Bill not found.'};var r=pay(s,'bank',b.amt,b.name+' bill','Bills');if(r.ok)s.bills.splice(i,1);return r}
+function budgetState(sp,b){if(!(b>0))return{pct:0,level:'none'};var p=sp/b*100;return{pct:Math.min(100,p),level:p>100?'over':p>=80?'warn':'ok'}}
+var S=mk(),$=function(i){return document.getElementById(i)};
+[['Food',2450,2],['Shopping',4200,5],['Bills',1850,8],['Travel',3100,11],['Recharge',599,13]].forEach(function(r){S.tx.push({cat:r[0],label:r[0]+' payment',amt:r[1],at:new Date(Date.now()-r[2]*864e5)})});
+var SRC='<select class="src"><option value="wallet">PayNest Wallet</option><option value="bank">Bank account</option><option value="card">Credit card</option></select>';
+document.querySelectorAll('[data-src]').forEach(function(e){e.innerHTML=SRC});
+function say(m,r){m.textContent=r.msg;m.className='m '+(r.ok?'ok':'er')}
+var pend=null;
+function ask(cb){if(S.locked){$('pinR').hidden=false}pend=cb;$('pin').value='';$('pinM').textContent=S.locked?'UPI is locked after 3 wrong PINs.':'';$('ov').hidden=false;$('pin').focus()}
+$('pinOk').onclick=function(){var r=checkPin(S,$('pin').value);if(r.ok){$('ov').hidden=true;$('pinR').hidden=true;var f=pend;pend=null;f()}else{$('pinM').textContent=r.msg;$('pin').value='';$('pinR').hidden=!S.locked}};
+$('pinX').onclick=function(){$('ov').hidden=true;pend=null};
+$('pinR').onclick=function(){S.locked=false;S.fails=0;$('pinR').hidden=true;$('pinM').textContent=''};
+function go(m,err,act){if(err){say(m,{ok:false,msg:err});return}ask(function(){say(m,act());render()})}
+function srcOf(sec){return document.querySelector('[data-v="'+sec+'"] .src').value}
+
+function show(v){document.querySelectorAll('[data-v]').forEach(function(s){s.hidden=s.dataset.v!==v});document.querySelectorAll('.nav button').forEach(function(b){b.setAttribute('aria-current',String(b.dataset.go===v))});window.scrollTo(0,0);try{history.replaceState(null,'','#'+v)}catch(e){}if(v==='qr')drawQR()}
+document.querySelectorAll('[data-go]').forEach(function(b){b.onclick=function(){if(b.dataset.dth)setRech(true);show(b.dataset.go)}});
+
+$('pGo').onclick=function(){var to=$('pTo').value.trim(),a=$('pAmt').value;var e=!(validUpi(to)||validPhone(to))?'Enter a valid UPI ID like name@paynest or a 10-digit mobile number.':checkAmt(a);go($('pM'),e,function(){var r=pay(S,srcOf('pay'),parseAmt(a),'Paid to '+to,'Shopping');if(r.ok){$('pAmt').value=''}return r})};
+$('uGo').onclick=function(){var r=setUpi(mk(),$('uName').value);go($('uM'),r.ok?null:r.msg,function(){return setUpi(S,$('uName').value)})};
+$('qS').onclick=function(){$('qIn').value='upi://pay?pa=chaipoint@paynest&pn=Chai%20Point&am=120'};
+var QR=null;
+$('qR').onclick=function(){QR=parseQR($('qIn').value);if(!QR){$('qBox').hidden=true;say($('qM'),{ok:false,msg:'This is not a valid UPI QR link. Check it and try again.'});return}$('qBox').hidden=false;$('qN').textContent='Pay '+QR.pn+' ('+QR.pa+')';$('qAmt').value=QR.am||'';$('qM').textContent=''};
+$('qGo').onclick=function(){go($('qM'),checkAmt($('qAmt').value),function(){return pay(S,srcOf('qr'),parseAmt($('qAmt').value),'Paid '+QR.pn+' by QR','Food')})};
+function drawQR(){var c=$('cv'),x=c.getContext('2d'),str='upi://pay?pa='+S.upi,h=7;for(var i=0;i<str.length;i++)h=(h*31+str.charCodeAt(i))>>>0;x.clearRect(0,0,25,25);x.fillStyle='#012a72';function r(){h=(h*1664525+1013904223)>>>0;return h/4294967296}
+for(var y=0;y<25;y++)for(var q=0;q<25;q++){var f=(q<8&&y<8)||(q>16&&y<8)||(q<8&&y>16);if(!f&&r()>.5)x.fillRect(q,y,1,1)}
+[[0,0],[18,0],[0,18]].forEach(function(p){x.fillStyle='#012a72';x.fillRect(p[0],p[1],7,7);x.fillStyle='#fff';x.fillRect(p[0]+1,p[1]+1,5,5);x.fillStyle='#012a72';x.fillRect(p[0]+2,p[1]+2,3,3)});$('qrT').textContent=S.upi}
+
+var OPS={m:{Jio:[199,299,719],Airtel:[219,299,749],Vi:[199,269,719]},d:{'Tata Play':[350,520,980],'Dish TV':[300,480,900],'Airtel DTH':[330,500,950]}},dth=false;
+function setRech(d){dth=d;$('rMob').setAttribute('aria-pressed',String(!d));$('rDth').setAttribute('aria-pressed',String(d));$('rL').textContent=d?'Customer ID (10 digits)':'Mobile number';$('rNo').value='';var o=$('rOp');o.innerHTML='';Object.keys(OPS[d?'d':'m']).forEach(function(k){o.add(new Option(k,k))});plans()}
+function plans(){var p=$('rPl');p.innerHTML='';OPS[dth?'d':'m'][$('rOp').value].forEach(function(a){p.add(new Option(inr(a)+(dth?' – 1 month':' – plan'),a))})}
+$('rMob').onclick=function(){setRech(false)};$('rDth').onclick=function(){setRech(true)};$('rOp').onchange=plans;
+$('rGo').onclick=function(){var n=$('rNo').value.trim(),e=dth?(/^\d{10}$/.test(n)?null:'Enter your 10-digit customer ID.'):(validPhone(n)?null:'Enter a valid 10-digit mobile number starting with 6, 7, 8 or 9.');go($('rM'),e,function(){return pay(S,srcOf('recharge'),parseAmt($('rPl').value),$('rOp').value+' recharge '+n,'Recharge')})};
+$('bGo').onclick=function(){var n=$('bNo').value.trim(),e=/^\d{6,12}$/.test(n)?checkAmt($('bAm').value,200000):'Enter a consumer number with 6 to 12 digits.';go($('bM'),e,function(){return pay(S,srcOf('bills'),parseAmt($('bAm').value),$('bC2').value+' bill '+n,'Bills')})};
+$('tGo').onclick=function(){var e=checkAmt($('tA').value);go($('tM'),e,function(){return moveMoney(S,$('tD').value,parseAmt($('tA').value))})};
+$('cGo').onclick=function(){var a=$('cA').value,e=checkAmt(a);if(!e&&parseAmt(a)>S.card.used)e='You only owe '+inr(S.card.used)+'.';go($('cM'),e,function(){var r=pay(S,'bank',parseAmt(a),'Credit card bill','Bills');if(r.ok){S.card.used-=parseAmt(a)}return r})};
+var MODE='Flight',OPT={Flight:['IndiGo 06:15','Air India 11:40','Akasa Air 19:05'],Bus:['Volvo AC 21:30','Sleeper 22:15','Seater 23:00'],Train:['Shatabdi 06:00','Rajdhani 16:55','Duronto 20:10']};
+document.querySelectorAll('#tSeg button').forEach(function(b){b.onclick=function(){MODE=b.textContent;document.querySelectorAll('#tSeg button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});$('fR').innerHTML=''}});
+$('fS').onclick=function(){var f=$('fF').value.trim(),t=$('fT').value.trim(),d=$('fD').value,p=parseInt($('fP').value,10),today=new Date().toISOString().slice(0,10),e=null;
+if(!f||!t)e='Enter both From and To.';else if(f.toLowerCase()===t.toLowerCase())e='From and To must be different.';else if(!d||d<today)e='Choose today or a later date.';else if(!(p>=1&&p<=6))e='Passengers must be between 1 and 6.';
+if(e){say($('fM'),{ok:false,msg:e});$('fR').innerHTML='';return}$('fM').textContent='';var box=$('fR');box.innerHTML='';
+OPT[MODE].forEach(function(n,i){var r=document.createElement('div');r.className='opt';var l=document.createElement('div');l.textContent=n+' · '+f+' to '+t;var b=document.createElement('button');b.className='btn s';b.textContent='Book '+inr(fare(MODE,p,i));b.onclick=function(){go($('fM'),null,function(){var x=pay(S,srcOf('travel'),fare(MODE,p,i),MODE+' '+f+'-'+t+' ('+p+')','Travel');if(x.ok)box.innerHTML='';return x})};r.appendChild(l);r.appendChild(b);box.appendChild(r)})};
+
+function list(ul,arr){ul.innerHTML='';arr.forEach(function(t){var li=document.createElement('li'),a=document.createElement('div'),b=document.createElement('div');a.textContent=t.label;var s=document.createElement('small');s.textContent=t.cat+' · '+t.at.toLocaleDateString('en-IN',{day:'numeric',month:'short'});a.appendChild(s);b.className='db';b.textContent='−'+inr(t.amt);li.appendChild(a);li.appendChild(b);ul.appendChild(li)})}
+function render(){$('upiChip').textContent=S.upi;$('rw').textContent=inr(S.rewards||0);['bW','bW2'].forEach(function(i){$(i).textContent=inr(S.wallet)});['bB','bB2'].forEach(function(i){$(i).textContent=inr(S.bank)});$('bC').textContent=inr(S.card.used);
+$('cU').textContent='Outstanding '+inr(S.card.used);$('cL').textContent='Limit '+inr(S.card.limit);$('cB').style.width=Math.min(100,S.card.used/S.card.limit*100)+'%';
+var srt=S.tx.slice().sort(function(a,b){return b.at-a.at});list($('txH'),srt.slice(0,5));list($('txA'),srt.filter(function(t){var q=$('q').value.toLowerCase();return !q||(t.label+' '+t.cat).toLowerCase().indexOf(q)>-1}));
+var o=spendBy(S),k=Object.keys(o).sort(function(a,b){return o[b]-o[a]}),tot=0;k.forEach(function(c){tot+=o[c]});$('sT').textContent='Total spent '+inr(tot)+(k.length?'. Highest: '+k[0]+'.':'.');
+var bx=$('sB');bx.innerHTML='';k.forEach(function(c){var r=document.createElement('div');r.className='bar2';r.innerHTML='<span></span><div><i></i></div><span></span>';r.children[0].textContent=c;r.querySelector('i').style.width=(o[c]/o[k[0]]*100)+'%';r.children[2].textContent=inr(o[c]);bx.appendChild(r)});budget(tot);toolsRender()}
+function budget(tot){var b=parseAmt($('bud').value),st=budgetState(tot,b),m=$('budM');$('budB').style.width=st.pct+'%';if(st.level==='none'){m.textContent='Enter a budget to track your spending.';m.className='m'}else if(st.level==='over'){m.textContent='You are over budget by '+inr(tot-b)+'.';m.className='m er'}else if(st.level==='warn'){m.textContent='You have used '+Math.round(st.pct)+'% of your budget. Slow down on spending.';m.className='m er'}else{m.textContent=inr(b-tot)+' left in your budget.';m.className='m ok'}}
+
+var TESTS=[
+['TC-01','Equivalence','Mobile 9876543210 accepted','valid',function(){return validPhone('9876543210')}],
+['TC-02','Boundary','9-digit and 11-digit mobiles rejected','invalid',function(){return !validPhone('987654321')&&!validPhone('98765432101')}],
+['TC-03','Equivalence','UPI ID rahul@paynest accepted; “rahul” (no @) rejected','valid / invalid',function(){return validUpi('rahul@paynest')&&!validUpi('rahul')}],
+['TC-04','Integration','QR link gives merchant, UPI ID and amount','chaipoint, 120',function(){var q=parseQR('upi://pay?pa=chaipoint@paynest&pn=Chai&am=120');return q&&q.pa==='chaipoint@paynest'&&q.am===120}],
+['TC-05','Negative','Non-UPI QR text is rejected','null',function(){return parseQR('http://evil.example')===null&&parseQR('upi://pay?pa=bad')===null}],
+['TC-06','Boundary','Pay exactly wallet balance ₹5,000 succeeds','balance 0',function(){var s=mk(),r=pay(s,'wallet',5000,'x','Food');return r.ok&&s.wallet===0}],
+['TC-07','Boundary','Pay ₹5,000.01 from wallet rejected','error, no change',function(){var s=mk(),r=pay(s,'wallet',5000.01,'x','Food');return !r.ok&&s.wallet===5000&&s.tx.length===0}],
+['TC-08','Boundary','Credit card payment above available limit rejected','error',function(){var s=mk();return !pay(s,'card',37601,'x','Shopping').ok&&s.card.used===12400}],
+['TC-09','Boundary','Amounts 0, 1, 100000, 100001 and “abc” checked','err / ok / ok / err / err',function(){return !!checkAmt('0')&&!checkAmt('1')&&!checkAmt('100000')&&!!checkAmt('100001')&&!!checkAmt('abc')}],
+['TC-10','Security','3 wrong PINs lock UPI','locked',function(){var s=mk();checkPin(s,'0');checkPin(s,'1');checkPin(s,'2');return s.locked}],
+['TC-11','Security','Correct PIN is refused once locked','not ok',function(){var s=mk();s.locked=true;return !checkPin(s,'1234').ok}],
+['TC-12','Security','Correct PIN resets the failed-try count','0 fails',function(){var s=mk();checkPin(s,'9');checkPin(s,'1234');return s.fails===0}],
+['TC-13','Equivalence','Personalised ID: “rahul” taken, “asha.k” accepted','err / ok',function(){var s=mk();return !setUpi(s,'rahul').ok&&setUpi(s,'asha.k').ok&&s.upi==='asha.k@paynest'}],
+['TC-14','Integration','Bank to wallet move keeps total money unchanged','30,000',function(){var s=mk();moveMoney(s,'bw',4000);return s.wallet+s.bank===30000&&!moveMoney(s,'bw',10001).ok}],
+['TC-15','Boundary','Fare for 3 passengers is 3 times the single fare','equal',function(){return fare('Bus',3,1)===3*fare('Bus',1,1)}],
+['TC-16','Integration','Analytics total equals sum of payments made','sum matches',function(){var s=mk();pay(s,'bank',300,'a','Food');pay(s,'wallet',200,'b','Bills');pay(s,'bank',100,'c','Food');var o=spendBy(s);return o.Food===400&&o.Bills===200}],
+['TC-17','Boundary','Cashback for ₹99, ₹100 and ₹10,000','0, 1, 50 (capped)',function(){return cashback(99)===0&&cashback(100)===1&&cashback(10000)===50}],
+['TC-18','Integration','Pay ₹250 earns ₹2; redeem adds it to wallet once','wallet 5,002',function(){var s=mk();pay(s,'bank',250,'x','Food');var a=s.rewards===2,r=redeem(s);return a&&r.ok&&s.wallet===5002&&s.rewards===0&&!redeem(s).ok}],
+['TC-19','Security','PIN change rejects wrong, weak and mismatched PINs','error x4, then ok',function(){var s=mk();return !changePin(s,'0000','4829','4829').ok&&!changePin(s,'1234','1111','1111').ok&&!changePin(s,'1234','4829','4820').ok&&!changePin(s,'1234','48a9','48a9').ok&&changePin(s,'1234','4829','4829').ok&&checkPin(s,'4829').ok}],
+['TC-20','Integration','Request link reads back with same UPI ID and amount','aditya.rai, 350',function(){var q=parseQR(reqLink(mk(),'350','Trip share'));return q&&q.pa==='aditya.rai@paynest'&&q.am===350&&reqLink(mk(),'0','x')===null}],
+['TC-21','Boundary','Budget level at 79.9%, 80%, 100% and 100.01%','ok, warn, warn, over',function(){return budgetState(7990,10000).level==='ok'&&budgetState(8000,10000).level==='warn'&&budgetState(10000,10000).level==='warn'&&budgetState(10001,10000).level==='over'}],
+['TC-22','Regression','Default UPI ID is aditya.rai@paynest','match',function(){return mk().upi==='aditya.rai@paynest'}],
+['TC-23','Boundary','Split ₹100 among 3: shares add up exactly','3334, 3333, 3333 paise',function(){var a=splitBill('100',3);return a.join()==='3334,3333,3333'&&a.reduce(function(x,y){return x+y})===10000}],
+['TC-24','Negative','Split rejects 1 person, 21 people and ₹0','null x3',function(){return splitBill('100',1)===null&&splitBill('100',21)===null&&splitBill('0',3)===null}],
+['TC-25','Integration','Save ₹500 to a ₹1,000 goal; saving ₹600 more is rejected','wallet 4,500, saved 500',function(){var s=mk();addGoal(s,'Phone','1000');var r=saveToGoal(s,0,'wallet',500);return r.ok&&s.wallet===4500&&s.goals[0].saved===500&&!saveToGoal(s,0,'wallet',600).ok&&s.wallet===4500}],
+['TC-26','Negative','Saving more than the balance is rejected','error, no change',function(){var s=mk();addGoal(s,'Car','100000');return !saveToGoal(s,0,'wallet',5001).ok&&s.wallet===5000&&s.goals[0].saved===0}],
+['TC-27','Boundary','Gold: ₹7,250 buys 1 g; ₹9.99 is rejected','1 g / error',function(){var s=mk();return buyGold(s,'bank',7250).ok&&s.gold===1&&!buyGold(s,'bank',9.99).ok}],
+['TC-28','Integration','Investments stay out of spend analytics','no Invested key',function(){var s=mk();buyGold(s,'bank',500);pay(s,'bank',100,'x','Food');var o=spendBy(s);return o.Invested===undefined&&o.Food===100&&s.tx.length===2}],
+['TC-29','Boundary','Due status: yesterday, +3 days, +4 days','overdue, soon, later',function(){var t=ymd(0);return dueStatus(ymd(-1),t)==='overdue'&&dueStatus(ymd(3),t)==='soon'&&dueStatus(ymd(4),t)==='later'}],
+['TC-30','Boundary','Reminder due yesterday rejected, due today accepted','error / ok',function(){var s=mk(),t=ymd(0);return !addReminder(s,'Rent','500',ymd(-1),t).ok&&addReminder(s,'Rent','500',t,t).ok&&s.bills.length===4}],
+['TC-31','Integration','Paying a reminder deducts from bank and removes it','bank 23,760, 2 left',function(){var s=mk(),r=payReminder(s,0);return r.ok&&s.bank===23760&&s.bills.length===2}]];
+var RES={};
+function table(){var tb=$('tb');tb.innerHTML='';TESTS.forEach(function(t){var tr=document.createElement('tr');t.slice(0,4).forEach(function(x){var td=document.createElement('td');td.textContent=x;tr.appendChild(td)});var td=document.createElement('td'),p=document.createElement('span'),r=RES[t[0]];p.className='pill '+(r===undefined?'idle':r?'pass':'fail');p.textContent=r===undefined?'Not run':r?'Pass':'Fail';td.appendChild(p);tr.appendChild(td);tb.appendChild(tr)})}
+$('run').onclick=function(){BUG=$('bug').checked;var n=0;TESTS.forEach(function(t){var ok=false;try{ok=!!t[4]()}catch(e){}RES[t[0]]=ok;if(ok)n++});BUG=false;var f=TESTS.length-n;$('sum').textContent=n+' of '+TESTS.length+' passed'+(f?' · '+f+' failed':'');$('sum').style.color=f?'var(--bd)':'var(--ok)';table()};
+[['Aisha','aisha.k@paynest'],['Mom','9876501234'],['Rohan','rohan@paynest'],['Chai Point','chaipoint@paynest']].forEach(function(c){var b=document.createElement('button');b.textContent=c[0];b.onclick=function(){$('pTo').value=c[1];$('pAmt').focus()};$('ct').appendChild(b)});
+$('rqGo').onclick=function(){var u=reqLink(S,$('rqA').value,$('rqN').value.trim());if(!u){say($('rqM'),{ok:false,msg:checkAmt($('rqA').value)});return}$('rqL').value=u;$('rqL').hidden=false;$('rqC').hidden=false;say($('rqM'),{ok:true,msg:'Request link ready. Copy it and send it to the payer.'})};
+$('rqC').onclick=function(){try{navigator.clipboard.writeText($('rqL').value).then(function(){say($('rqM'),{ok:true,msg:'Link copied.'})},function(){$('rqL').select()})}catch(e){$('rqL').select()}};
+$('pcGo').onclick=function(){var r=changePin(S,$('pcO').value,$('pcN').value,$('pcC').value);say($('pcM'),r);if(r.ok)['pcO','pcN','pcC'].forEach(function(i){$(i).value=''})};
+$('rwG').onclick=function(){say($('rwM'),redeem(S));render()};
+$('bud').oninput=render;$('q').oninput=render;
+function toolsRender(){var ul=$('rmL'),today=ymd(0);ul.innerHTML='';if(!S.bills.length)ul.innerHTML='<li><span class="note">No upcoming bills.</span></li>';S.bills.forEach(function(b,i){var li=document.createElement('li'),a=document.createElement('div'),s=document.createElement('small'),st=dueStatus(b.due,today);a.textContent=b.name+' · '+inr(b.amt);s.textContent=(st==='overdue'?'Overdue since ':'Due ')+b.due;if(st!=='later')s.style.color='var(--bd)';a.appendChild(s);var btn=document.createElement('button');btn.className='btn s';btn.textContent='Pay';btn.onclick=function(){go($('rmM'),null,function(){return payReminder(S,i)})};li.appendChild(a);li.appendChild(btn);ul.appendChild(li)});
+var gl=$('gL'),sel=$('gS'),keep=sel.value;gl.innerHTML='';sel.innerHTML='';S.goals.forEach(function(g,i){var d=document.createElement('div'),t=document.createElement('div'),p=document.createElement('div'),f=document.createElement('div');d.style.margin='8px 0';t.textContent=g.name+': '+inr(g.saved)+' of '+inr(g.target);p.className='pb';f.style.width=Math.min(100,g.saved/g.target*100)+'%';p.appendChild(f);d.appendChild(t);d.appendChild(p);gl.appendChild(d);sel.add(new Option(g.name,i))});if(!S.goals.length)gl.innerHTML='<p class="note">No goals yet. Create one below.</p>';if(keep)sel.value=keep;$('gp').textContent=inr(GOLD);$('gh').textContent=S.gold+' g';$('gv').textContent=inr(Math.round(S.gold*GOLD*100)/100)}
+$('rmGo').onclick=function(){var r=addReminder(S,$('rmN').value,$('rmA').value,$('rmD').value,ymd(0));say($('rmM'),r);if(r.ok){$('rmN').value='';$('rmA').value='';render()}};
+$('spGo').onclick=function(){var n=parseInt($('spN').value,10),a=splitBill($('spA').value,n),m=$('spM');if(!a){say(m,{ok:false,msg:'Enter a bill of at least ₹1 and 2 to 20 people.'});return}var hi=a[0]/100,lo=a[n-1]/100,c=a.filter(function(x){return x===a[0]}).length;say(m,{ok:true,msg:hi===lo?'Each person pays '+inr(hi)+'.':'Each person pays '+inr(lo)+', and '+c+' of you pay '+inr(hi)+' to cover the extra paise.'});$('spL').value=reqLink(S,String(hi),'Bill split');$('spL').hidden=false};
+$('gNew').onclick=function(){var r=addGoal(S,$('gN').value,$('gT').value);say($('gM'),r);if(r.ok){$('gN').value='';$('gT').value='';render()}};
+$('gAdd').onclick=function(){var i=parseInt($('gS').value,10),e=isNaN(i)?'Create a goal first.':checkAmt($('gA').value);go($('gM'),e,function(){var r=saveToGoal(S,i,$('gSrc').value,parseAmt($('gA').value));if(r.ok)$('gA').value='';return r})};
+$('gdGo').onclick=function(){go($('gdM'),checkAmt($('aG').value),function(){var r=buyGold(S,$('gdS').value,parseAmt($('aG').value));if(r.ok)$('aG').value='';return r})};
+setRech(false);table();render();
+var h=location.hash.slice(1);show(document.querySelector('[data-v="'+h+'"]')?h:'home');
+</script></body></html>
